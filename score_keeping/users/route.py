@@ -10,6 +10,22 @@ users_api_blueprint = Blueprint('users_api',
                                 __name__,
                                 template_folder='templates')
 
+@users_api_blueprint.route('/games', methods=['GET'])
+def list_games():
+    games = Game.query.all()
+
+    games = [{
+        "id": int(game.id),
+        "gameName": game.gameName,
+        "scorePerPoint": game.scorePerPoint,
+        "timerChecked": game.timerChecked,
+        "timerMinPerRound": game.timerMinPerRound,
+        "timerMinPerGame": game.timerMinPerGame
+    } for game in games]
+
+    return jsonify(games), 200
+
+
 
 @users_api_blueprint.route('/signup', methods=['POST'])
 def create_user():
