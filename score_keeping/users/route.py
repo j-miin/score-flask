@@ -72,6 +72,10 @@ def game_log():
         message="Game log added"
     )
 
+@users_api_blueprint.route('/pastgames', methods=['GET'])
+def past_games():
+
+    past_game = Gamelog.query.filter_by(id)    
 
 @users_api_blueprint.route('/login', methods=['POST'])
 def login():
@@ -127,11 +131,8 @@ def create_game():
 
         return jsonify(responseObject), 401
 
-    # import pdb; pdb.set_trace()
-    # This part is very buggy. i try to sperate the dictionary, it only works sometimes
     user_id = User.decode_auth_token(auth_token)
-    # import pdb; pdb.n()
-    # first_val = list(user_id.values())[1]
+
     user = User.query.get(user_id)
 
     if user:
@@ -154,10 +155,3 @@ def create_game():
             'status': 'failed',
             'message': 'Authentication failed'
         }
-
-    # post_data = request.get_json()
-    # user = User.get_with_email_and_password(post_data['user']["email"], post_data["password"])
-    # if user:
-    #     return jsonify(token=generate_token(user))
-    # else:
-    #     return jsonify(error=True), 403
