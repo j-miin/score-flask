@@ -32,7 +32,7 @@ login_manager.init_app(app)
 app.register_blueprint(users_api_blueprint, url_prefix='/api/v1/')
 
 
-@app.route("/images/upload", methods=["POST"])
+@app.route("/api/images/upload", methods=["POST"])
 def upload():
     data = request.get_json()
     image_data = data.get("image")
