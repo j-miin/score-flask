@@ -1,5 +1,3 @@
-from score_keeping.users.models import User
-from score_keeping.users.route import users_api_blueprint
 import os
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
@@ -27,14 +25,16 @@ login_manager.init_app(app)
 
 
 # import user model so that you can run migration
+from score_keeping.users.models import User
+from score_keeping.users.route import users_api_blueprint
 
 
 app.register_blueprint(users_api_blueprint, url_prefix='/api/v1/')
 
 
-@app.route("/api/images/upload", methods=["POST"])
+@app.route("/api/v1/images/upload", methods=["POST"])
 def upload():
-    data = request.get_json()
+    data = request.get_json(force=True)
     image_data = data.get("image")
     image_id = uploader(image_data)
     return make_response(jsonify({'public_id': image_id}))
