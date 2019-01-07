@@ -70,12 +70,7 @@ def game_log():
 
     return jsonify(
         message="Game log added"
-    )
-
-@users_api_blueprint.route('/pastgames', methods=['GET'])
-def past_games():
-
-    past_game = Gamelog.query.filter_by(id)    
+    ) 
 
 @users_api_blueprint.route('/login', methods=['POST'])
 def login():
@@ -155,3 +150,18 @@ def create_game():
             'status': 'failed',
             'message': 'Authentication failed'
         }
+
+@users_api_blueprint.route('game/<id>', methods=['POST'])
+def delete_game(id):
+    game = Game.query.get(id)
+    old_game = GameLog.query.filter_by(game_id=id).first()
+
+    db.session.delete(old_game)
+    db.session.commit()
+
+    db.session.delete(game)
+    db.session.commit()
+
+    return jsonify(
+        "Game has been deleted"
+    )

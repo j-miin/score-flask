@@ -16,7 +16,6 @@ itsdangerous==1.1.0
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.1.0
-mkl-fft==1.0.6
 numpy==1.15.4
 psycopg2==2.7.6.1
 psycopg2-binary==2.7.6.1
