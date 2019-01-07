@@ -154,7 +154,7 @@ def create_game():
 @users_api_blueprint.route('game/<id>', methods=['POST'])
 def delete_game(id):
     game = Game.query.get(id)
-    old_game = GameLog.query.filter_by(game_id=id).first()
+    old_game = GameLog.query.filter_by(game_id=id).all()
 
     db.session.delete(old_game)
     db.session.commit()
