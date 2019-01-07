@@ -157,7 +157,7 @@ def delete_game(id):
     old_games = GameLog.query.filter_by(game_id=id).all()
 
     for old_game in old_games:
-        db.session.delete(old_games)
+        db.session.delete(old_game)
         db.session.commit()
 
     db.session.delete(game)
